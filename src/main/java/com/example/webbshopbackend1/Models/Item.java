@@ -13,10 +13,10 @@ public class Item {
     @Id
     @GeneratedValue
     private Long id;
-    private int name;
+    private String name;
     private int price;
 
-    public Item(int name, int price){
+    public Item(String name, int price){
         this.name = name;
         this.price = price;
     }
