@@ -24,4 +24,12 @@ public class ItemController {
     public Item getItems(@PathVariable Long id){
         return itemRepo.findById(id).get();
     }
+
+    @RequestMapping("items/add/{name}/{price}")
+    public List<Item> addItem(@PathVariable String name, @PathVariable int price){
+        Item item = new Item(name, price);
+        itemRepo.save(item);
+        return itemRepo.findAll();
+        //return "Item added! " + name + " " + price + " SEK"; //Om vi vill returnera en sträng
+    }
 }
