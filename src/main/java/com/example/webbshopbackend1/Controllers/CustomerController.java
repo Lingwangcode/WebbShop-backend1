@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController         //eller ska det vara bara @Controller eftersom vi ska jobba med templating sen?
-@RequestMapping ("/customer")
+@RequestMapping ("/customer")   //för att kunna 'återanvända' samma url:ar för endpoints i olika controllers
 public class CustomerController {
 
     private final  CustomerRepo cr;
