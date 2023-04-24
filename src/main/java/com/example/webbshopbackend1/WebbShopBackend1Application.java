@@ -17,7 +17,7 @@ public class WebbShopBackend1Application {
 	}
 
 	@Bean
-	public CommandLineRunner bootstrap(ItemRepo itemRepo){
+	public CommandLineRunner bootstrap(ItemRepo itemRepo, CustomerRepo customerRepo){
 		return (args) -> {
 			Item item1 = new Item("Sweatshirt", 499);
 			Item item2 = new Item("Tophat", 299);
@@ -30,6 +30,14 @@ public class WebbShopBackend1Application {
 			itemRepo.save(item3);
 			itemRepo.save(item4);
 			itemRepo.save(item5);
+
+			Customer customer1 = new Customer("Anna", "871234-5678");
+			Customer customer2 = new Customer("Ling", "963852-0147");
+			Customer customer3 = new Customer("Maria", "987654-3210");
+
+			customerRepo.save(customer1);
+			customerRepo.save(customer2);
+			customerRepo.save(customer3);
 		};
 	}
 
