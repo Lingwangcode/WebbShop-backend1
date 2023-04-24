@@ -16,8 +16,7 @@ public class Item {
     private int name;
     private int price;
 
-    public Item(Long id, int name, int price){
-        this.id = id;
+    public Item(int name, int price){
         this.name = name;
         this.price = price;
     }
