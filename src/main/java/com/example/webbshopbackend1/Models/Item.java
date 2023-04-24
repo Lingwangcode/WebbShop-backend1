@@ -6,20 +6,20 @@ import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @Entity
+@Data
 @NoArgsConstructor
-public class Customer {
+public class Item {
     @Id
     @GeneratedValue
     private Long id;
     private String name;
-    private String socialSecurityNumber;
+    private int price;
 
-    public Customer(String name, String socialSecurityNumber) {
+    public Item(String name, int price){
         this.name = name;
-        this.socialSecurityNumber = socialSecurityNumber;
+        this.price = price;
     }
+
+
 }
-
-
