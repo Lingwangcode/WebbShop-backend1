@@ -26,7 +26,19 @@ public class Orders {
     @OneToMany
     private List<Item> items = new ArrayList<>();
 
-    public Orders(LocalDate ld, Customer customer){
+    public Orders(LocalDate ld, Customer customer, List<Item> items){
         this.customer=customer;
+        this.date = ld;
+        this.items = items;
+    }
+
+    public List<Orders> findOrderByCustomerId(Long customerId, List<Orders>orders){
+        List<Orders> customerOrders = new ArrayList<>();
+        for(Orders order : orders){
+            if(order.getCustomer().getId() == customerId){
+                customerOrders.add(order);
+            }
+        }
+        return customerOrders;
     }
 }

@@ -2,12 +2,18 @@ package com.example.webbshopbackend1;
 
 import com.example.webbshopbackend1.Models.Customer;
 import com.example.webbshopbackend1.Models.Item;
+import com.example.webbshopbackend1.Models.Orders;
 import com.example.webbshopbackend1.Repos.CustomerRepo;
 import com.example.webbshopbackend1.Repos.ItemRepo;
+import com.example.webbshopbackend1.Repos.OrderRepo;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class WebbShopBackend1Application {
@@ -17,7 +23,7 @@ public class WebbShopBackend1Application {
 	}
 
 	@Bean
-	public CommandLineRunner bootstrap(ItemRepo itemRepo, CustomerRepo customerRepo){
+	public CommandLineRunner bootstrap(ItemRepo itemRepo, CustomerRepo customerRepo, OrderRepo orderRepo){
 		return (args) -> {
 			Item item1 = new Item("Sweatshirt", 499);
 			Item item2 = new Item("Tophat", 299);
@@ -38,6 +44,17 @@ public class WebbShopBackend1Application {
 			customerRepo.save(customer1);
 			customerRepo.save(customer2);
 			customerRepo.save(customer3);
+
+			Orders order1 = new Orders(LocalDate.of(2023, 4, 20),
+					customer1, List.of(item1, item2));
+			Orders order2 = new Orders(LocalDate.of(2023, 4, 21),
+					customer2, List.of(item3));
+			Orders order3 = new Orders(LocalDate.of(2023, 4, 21),
+					customer3, List.of(item4, item5));
+
+			orderRepo.save(order1);
+			orderRepo.save(order2);
+			orderRepo.save(order3);
 		};
 	}
 
