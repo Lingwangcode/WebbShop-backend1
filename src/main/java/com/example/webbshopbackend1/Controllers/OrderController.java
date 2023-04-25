@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,9 +29,13 @@ public class OrderController {
     @RequestMapping("/customerId/{customerId}")
     public List<Orders> getOrdersByCustomerId(@PathVariable Long customerId){
         List<Orders> orders = orderRepo.findAll();
-        Orders order = new Orders();
-        return order.findOrderByCustomerId(customerId, orders);
+        List<Orders> customerOrders = new ArrayList<>();
+        for(Orders order : orders){
+            if(order.getCustomer().getId() == customerId){
+                customerOrders.add(order);
+            }
+        }
+        return customerOrders;
     }
-
 
 }
