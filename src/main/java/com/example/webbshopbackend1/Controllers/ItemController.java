@@ -17,11 +17,11 @@ public class ItemController {
         this.itemRepo = itemRepo;
     }
 
-    @RequestMapping("")
-    public List<Item> getItems(){
+    @RequestMapping("/getAll")
+    public List<Item> getAllItems(){
         return itemRepo.findAll();
     }
-    @RequestMapping("/{id}")
+    @RequestMapping("/getById/{id}")
     public Item getItems(@PathVariable Long id){
         return itemRepo.findById(id).get();
     }

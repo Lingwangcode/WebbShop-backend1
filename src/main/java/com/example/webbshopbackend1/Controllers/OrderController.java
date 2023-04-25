@@ -15,23 +15,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 public class OrderController {
 
     private final OrderRepo orderRepo;
-    private CustomerRepo customerRepo;
-    private ItemRepo itemRepo;
+    private final CustomerRepo customerRepo;
+    private final ItemRepo itemRepo;
 
     OrderController(OrderRepo orderRepo, CustomerRepo customerRepo, ItemRepo itemRepo){
         this.orderRepo = orderRepo;
         this.customerRepo = customerRepo;
         this.itemRepo = itemRepo;
     }
-    @RequestMapping("/findAll")
+    @RequestMapping("/getAll")
     public List<Orders> getAllOrders(){
         return orderRepo.findAll();
     }
-    @RequestMapping("/customerId/{customerId}")
+    @RequestMapping("/getByCustomerId/{customerId}")
     public List<Orders> getOrdersByCustomerId(@PathVariable Long customerId){
         List<Orders> orders = orderRepo.findAll();
         List<Orders> customerOrders = new ArrayList<>();
