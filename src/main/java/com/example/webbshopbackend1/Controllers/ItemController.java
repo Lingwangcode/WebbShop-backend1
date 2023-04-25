@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequestMapping ("/items")
 public class ItemController {
     private final ItemRepo itemRepo;
 
@@ -16,16 +17,16 @@ public class ItemController {
         this.itemRepo = itemRepo;
     }
 
-    @RequestMapping("items")
+    @RequestMapping("")
     public List<Item> getItems(){
         return itemRepo.findAll();
     }
-    @RequestMapping("items/{id}")
+    @RequestMapping("/{id}")
     public Item getItems(@PathVariable Long id){
         return itemRepo.findById(id).get();
     }
 
-    @RequestMapping("items/add/{name}/{price}")
+    @RequestMapping("/add/{name}/{price}")
     public List<Item> addItem(@PathVariable String name, @PathVariable int price){
         Item item = new Item(name, price);
         itemRepo.save(item);
