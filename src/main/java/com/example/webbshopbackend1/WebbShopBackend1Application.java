@@ -30,12 +30,16 @@ public class WebbShopBackend1Application {
 			Item item3 = new Item("Cool jeans", 799);
 			Item item4 = new Item("Pearl bracelet", 1299);
 			Item item5 = new Item("White t-shirt", 99);
+			Item item6 = new Item("Black t-shirt", 99);
+			Item item7 = new Item("Yellow t-shirt", 99);
 
 			itemRepo.save(item1);
 			itemRepo.save(item2);
 			itemRepo.save(item3);
 			itemRepo.save(item4);
 			itemRepo.save(item5);
+			itemRepo.save(item6);
+			itemRepo.save(item7);
 
 			Customer customer1 = new Customer("Anna", "871234-5678");
 			Customer customer2 = new Customer("Ling", "963852-0147");
