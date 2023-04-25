@@ -26,7 +26,10 @@ public class Orders {
     @OneToMany
     private List<Item> items = new ArrayList<>();
 
-    public Orders(LocalDate ld, Customer customer){
+    public Orders(LocalDate ld, Customer customer, List<Item> items){
         this.customer=customer;
+        this.date = ld;
+        this.items = items;
     }
+
 }
