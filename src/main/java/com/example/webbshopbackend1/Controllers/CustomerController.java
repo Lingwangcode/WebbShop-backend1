@@ -1,6 +1,7 @@
 package com.example.webbshopbackend1.Controllers;
 
 import com.example.webbshopbackend1.Models.Customer;
+import com.example.webbshopbackend1.Models.Item;
 import com.example.webbshopbackend1.Repos.CustomerRepo;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,4 +29,10 @@ public class CustomerController {
         return cr.findById(id).orElse(null);
     }
 
+    @RequestMapping("/add/{name}/{socSec}")
+    public List<Customer> addCustomer(@PathVariable String name, @PathVariable String socSec){
+        Customer customer = new Customer(name, socSec);
+        cr.save(customer);
+        return cr.findAll();
+    }
 }
