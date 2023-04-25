@@ -33,4 +33,5 @@ public class ItemController {
         return itemRepo.findAll();
         //return "Item added! " + name + " " + price + " SEK"; //Om vi vill returnera en sträng
     }
+
 }
