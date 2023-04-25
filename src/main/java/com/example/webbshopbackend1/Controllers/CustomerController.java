@@ -9,27 +9,27 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController         //eller ska det vara bara @Controller eftersom vi ska jobba med templating sen?
-@RequestMapping ("/customers")
+@RequestMapping("/customers")
 public class CustomerController {
 
-    private final  CustomerRepo customerRepo;
+    private final CustomerRepo customerRepo;
 
     public CustomerController(CustomerRepo customerRepo) {
         this.customerRepo = customerRepo;
     }
 
-    @RequestMapping ("/getAll")
-    public List<Customer> getAllCustomers (){
+    @RequestMapping("/getAll")
+    public List<Customer> getAllCustomers() {
         return customerRepo.findAll();
     }
 
-    @RequestMapping ("/getById/{id}")
-    public Customer getCustomerById (@PathVariable Long id){
+    @RequestMapping("/getById/{id}")
+    public Customer getCustomerById(@PathVariable Long id) {
         return customerRepo.findById(id).orElse(null);
     }
 
     @RequestMapping("/add/{name}/{socSec}")
-    public List<Customer> addCustomer(@PathVariable String name, @PathVariable String socSec){
+    public List<Customer> addCustomer(@PathVariable String name, @PathVariable String socSec) {
         Customer customer = new Customer(name, socSec);
         customerRepo.save(customer);
         return customerRepo.findAll();

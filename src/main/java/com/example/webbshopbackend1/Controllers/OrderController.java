@@ -22,21 +22,23 @@ public class OrderController {
     private final CustomerRepo customerRepo;
     private final ItemRepo itemRepo;
 
-    OrderController(OrderRepo orderRepo, CustomerRepo customerRepo, ItemRepo itemRepo){
+    OrderController(OrderRepo orderRepo, CustomerRepo customerRepo, ItemRepo itemRepo) {
         this.orderRepo = orderRepo;
         this.customerRepo = customerRepo;
         this.itemRepo = itemRepo;
     }
+
     @RequestMapping("/getAll")
-    public List<Orders> getAllOrders(){
+    public List<Orders> getAllOrders() {
         return orderRepo.findAll();
     }
+
     @RequestMapping("/getByCustomerId/{customerId}")
-    public List<Orders> getOrdersByCustomerId(@PathVariable Long customerId){
+    public List<Orders> getOrdersByCustomerId(@PathVariable Long customerId) {
         List<Orders> orders = orderRepo.findAll();
         List<Orders> customerOrders = new ArrayList<>();
-        for(Orders order : orders){
-            if(order.getCustomer().getId() == customerId){
+        for (Orders order : orders) {
+            if (order.getCustomer().getId() == customerId) {
                 customerOrders.add(order);
             }
         }
@@ -44,14 +46,13 @@ public class OrderController {
     }
 
     @RequestMapping("/buy/{customerId}/{itemId}")
-    public String addOrder(@PathVariable Long customerId, @PathVariable Long itemId){
+    public String addOrder(@PathVariable Long customerId, @PathVariable Long itemId) {
         Item item = itemRepo.findById(itemId).get();
         Customer customer = customerRepo.findById(customerId).get();
-        if(item != null && customer != null){
+        if (item != null && customer != null) {
             orderRepo.save(new Orders(LocalDate.now(), customer, List.of(item)));
             return "Order added";
-        }
-        else{
+        } else {
             return "Order failed";
         }
 
