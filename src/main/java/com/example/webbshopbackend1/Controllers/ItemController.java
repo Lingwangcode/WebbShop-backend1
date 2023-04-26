@@ -2,14 +2,12 @@ package com.example.webbshopbackend1.Controllers;
 
 import com.example.webbshopbackend1.Models.Item;
 import com.example.webbshopbackend1.Repos.ItemRepo;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/items")
+@RequestMapping ("/items")
 public class ItemController {
     private final ItemRepo itemRepo;
 
@@ -17,22 +15,19 @@ public class ItemController {
         this.itemRepo = itemRepo;
     }
 
-    @RequestMapping("/getAll")
-    public List<Item> getAllItems() {
+    @RequestMapping("")
+    public List<Item> getItems(){
         return itemRepo.findAll();
     }
-
-    @RequestMapping("/getById/{id}")
-    public Item getItems(@PathVariable Long id) {
+    @RequestMapping("/{id}")
+    public Item getItems(@PathVariable Long id){
         return itemRepo.findById(id).get();
     }
 
-    @RequestMapping("/add/{name}/{price}")
-    public List<Item> addItem(@PathVariable String name, @PathVariable int price) {
-        Item item = new Item(name, price);
+    //curl http://localhost:8080/items/add -H "Content-Type:application/json" -d "{\"name\":\"Lola-shirt\", \"price\":1745}" -v
+    @PostMapping("/add")
+    public Item addItem(@RequestBody Item item){
         itemRepo.save(item);
-        return itemRepo.findAll();
-        //return "Item added! " + name + " " + price + " SEK"; //Om vi vill returnera en sträng
+        return itemRepo.findById(item.getId()).get();
     }
-
 }
