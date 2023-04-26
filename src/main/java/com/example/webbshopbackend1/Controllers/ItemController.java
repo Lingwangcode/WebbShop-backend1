@@ -15,11 +15,11 @@ public class ItemController {
         this.itemRepo = itemRepo;
     }
 
-    @RequestMapping("")
+    @RequestMapping("/getAll")
     public List<Item> getItems(){
         return itemRepo.findAll();
     }
-    @RequestMapping("/{id}")
+    @RequestMapping("/getByItemId/{id}")
     public Item getItems(@PathVariable Long id){
         return itemRepo.findById(id).get();
     }
