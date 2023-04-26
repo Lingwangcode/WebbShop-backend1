@@ -25,11 +25,16 @@ public class CustomerController {
     public Customer getCustomerById(@PathVariable Long id) {
         return customerRepo.findById(id).orElse(null);
     }
+
     //curl http://localhost:8080/customers/add -H "Content-Type:application/json" -d "{\"name\":\"baby\", \"socialSecurityNumber\":\"222222\"}" -v
     @PostMapping("/add")
     public Customer addCustomer(@RequestBody Customer customer){
         customerRepo.save(customer);
         return customerRepo.findById(customer.getId()).get();
     }
-
+    @PostMapping("/addString")
+    public String addCustomerGetString(@RequestBody Customer customer){
+        customerRepo.save(customer);
+        return "Customer " +customer.getName()+ " added to database";
+    }
 }
