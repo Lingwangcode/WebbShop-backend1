@@ -68,8 +68,8 @@ class CustomerControllerTest {
     void addCustomer() throws Exception {
         this.mockMvc.perform(post("/customers/add").contentType(MediaType.APPLICATION_JSON)
                 .content("{\"id\":5, \"name\":\"Albert\", \"socialSecurityNumber\":\"777\"}"))
-                .andExpect(status().isOk()).andExpect(content().string(equalTo()))
-
+                .andExpect(status().isOk()).andExpect(jsonPath("$.name", equalTo("Albert")))
+                .andExpect(jsonPath("$.socialSecurityNumber", equalTo("777")));
     }
 }
 /*
