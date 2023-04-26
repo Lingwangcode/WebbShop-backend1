@@ -6,9 +6,8 @@ import com.example.webbshopbackend1.Models.Orders;
 import com.example.webbshopbackend1.Repos.CustomerRepo;
 import com.example.webbshopbackend1.Repos.ItemRepo;
 import com.example.webbshopbackend1.Repos.OrderRepo;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -60,7 +59,8 @@ public class OrderController {
 
    */
 
-    @RequestMapping("/buy/{customerId}/{itemIds}")
+    //curl -X POST -H "Content-Type: application/json" -d "{\"customerId\":\"1\",\"itemIds\":[\"2\",\"3\"]}" http://localhost:8080/orders/buy/1/2,3
+    @PostMapping(path = "/buy/{customerId}/{itemIds}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public String addOrder(@PathVariable Long customerId, @PathVariable List<Long> itemIds) {
         List<Item> items = new ArrayList<>();
         for (Long itemId :itemIds) {            //måste gå via en for-loop för att kunna lägga till flera av samma id i samma order
