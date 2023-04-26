@@ -15,7 +15,7 @@ public class ItemController {
         this.itemRepo = itemRepo;
     }
 
-    @RequestMapping("")
+    @RequestMapping("/getAll")
     public List<Item> getItems(){
         return itemRepo.findAll();
     }
