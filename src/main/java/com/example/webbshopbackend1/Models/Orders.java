@@ -23,7 +23,9 @@ public class Orders {
     @JoinColumn
     private Customer customer;
 
-    @OneToMany
+    //@OneToMany        om en item bara ska kunna finnas med i en beställning
+    @ManyToMany         //om samma item ska kunna finnas med i flera beställningar
+    @JoinTable
     private List<Item> items = new ArrayList<>();
 
     public Orders(LocalDate ld, Customer customer, List<Item> items){
@@ -31,5 +33,6 @@ public class Orders {
         this.date = ld;
         this.items = items;
     }
+
 
 }
