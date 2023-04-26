@@ -128,6 +128,14 @@ public class OrderControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("Order added"));
 
+        this.mockMvc.perform(post("/orders/buy?customerId=4&itemIds=3&itemIds=2"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Order failed"));
+
+        this.mockMvc.perform(post("/orders/buy?customerId=4&itemIds=3&itemIds=6"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Order failed"));
+
     }
 
 
