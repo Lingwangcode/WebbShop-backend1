@@ -59,6 +59,7 @@ public class OrderController {
 
    */
 
+    //curl -X POST -H "Content-Type: application/json" -d "{\"customerId\":\"1\",\"itemIds\":[\"2\",\"3\"]}" http://localhost:8080/orders/buy/1/2,3
     @PostMapping(path = "/buy/{customerId}/{itemIds}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public String addOrder(@PathVariable Long customerId, @PathVariable List<Long> itemIds) {
         List<Item> items = new ArrayList<>();
