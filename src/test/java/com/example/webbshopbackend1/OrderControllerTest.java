@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
@@ -22,6 +23,7 @@ import java.util.Optional;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -57,29 +59,76 @@ public class OrderControllerTest {
         when(mockOrderRepo.findById(3L)).thenReturn(Optional.of(order3));
         when(mockOrderRepo.findAll()).thenReturn(Arrays.asList(order1,order2,order3));
 
+        when(mockCusRepo.findById(1L)).thenReturn(Optional.of(customer1));
+        when(mockCusRepo.findById(2L)).thenReturn(Optional.of(customer2));
+        when(mockCusRepo.findById(3L)).thenReturn(Optional.of(customer3));
+        when(mockCusRepo.findAll()).thenReturn(Arrays.asList(customer1,customer2,customer3));
+
+        when(mockItemRepo.findById(1L)).thenReturn(Optional.of(item1));
+        when(mockItemRepo.findById(2L)).thenReturn(Optional.of(item2));
+        when(mockItemRepo.findById(3L)).thenReturn(Optional.of(item3));
+        when(mockItemRepo.findById(4L)).thenReturn(Optional.of(item4));
+        when(mockItemRepo.findAll()).thenReturn(Arrays.asList(item1,item2,item3,item4));
+
     }
 
-    /*@RequestMapping("/getAll")
-    public List<Orders> getAllOrders() {
-        return orderRepo.findAll();
-    }
-
-     */
     @Test
     void getAllOrders() throws Exception {
 
         this.mockMvc.perform(get("/orders/getAll"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("[{\"id\":1,\"date\":\"2023-04-26\"," +
-                        "\"customer\":{\"id\":1,\"name\":\"Amy\",\"phone\":\"546789\"}," +
+                        "\"customer\":{\"id\":1,\"name\":\"Amy\",\"socialSecurityNumber\":\"546789\"}," +
                         "\"items\":[{\"id\":1,\"name\":\"White T-shirt\",\"price\":399}," +
                         "{\"id\":2,\"name\":\"Red T-shirt\",\"price\":399}]}," + "{\"id\":2,\"date\":\"2023-04-26\"," +
-                        "\"customer\":{\"id\":2,\"name\":\"Joe\",\"phone\":\"789654\"}," +
+                        "\"customer\":{\"id\":2,\"name\":\"Joe\",\"socialSecurityNumber\":\"789654\"}," +
                         "\"items\":[{\"id\":3,\"name\":\"Yellow T-shirt\",\"price\":299}," +
                         "{\"id\":4,\"name\":\"Green T-shirt\",\"price\":299}]}," + "{\"id\":3,\"date\":\"2023-04-26\"," +
-                        "\"customer\":{\"id\":3,\"name\":\"Sara\",\"phone\":\"523698\"}," +
+                        "\"customer\":{\"id\":3,\"name\":\"Sara\",\"socialSecurityNumber\":\"523698\"}," +
                         "\"items\":[{\"id\":1,\"name\":\"White T-shirt\",\"price\":399}]}]"
                 ));
 
     }
+
+    @Test
+    void getOrdersByCustomerId() throws Exception {
+
+        this.mockMvc.perform(get("/orders/getByCustomerId/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("[{\"id\":1,\"date\":\"2023-04-26\"," +
+                        "\"customer\":{\"id\":1,\"name\":\"Amy\",\"socialSecurityNumber\":\"546789\"}," +
+                        "\"items\":[{\"id\":1,\"name\":\"White T-shirt\",\"price\":399}," +
+                        "{\"id\":2,\"name\":\"Red T-shirt\",\"price\":399}]}]"
+                ));
+
+    }
+
+    /* @PostMapping(path = "/buy/{customerId}/{itemIds}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String addOrder(@PathVariable Long customerId, @PathVariable List<Long> itemIds) {
+        List<Item> items = new ArrayList<>();
+        for (Long itemId :itemIds) {            //måste gå via en for-loop för att kunna lägga till flera av samma id i samma order
+            Item item = itemRepo.findById(itemId).orElse(null);
+            if (item != null) {
+                items.add(item);
+            }
+        }
+        Customer customer = customerRepo.findById(customerId).orElse(null); //orElse(null) krävs för att inte få 500-fel om obefintligt ID anges
+        if (items != null && customer != null) {
+            orderRepo.save(new Orders(LocalDate.now(), customer, items));
+            return "Order added";
+        } else {
+            return "Order failed";
+        }
+
+    }*/
+    @Test
+    void addOrder() throws Exception {
+
+        this.mockMvc.perform(post("/orders/buy?customerId=2&itemIds=3&itemIds=2"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Order added"));
+
+    }
+
+
 }
