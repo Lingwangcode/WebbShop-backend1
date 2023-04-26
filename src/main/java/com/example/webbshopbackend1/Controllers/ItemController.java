@@ -2,9 +2,7 @@ package com.example.webbshopbackend1.Controllers;
 
 import com.example.webbshopbackend1.Models.Item;
 import com.example.webbshopbackend1.Repos.ItemRepo;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,11 +24,9 @@ public class ItemController {
         return itemRepo.findById(id).get();
     }
 
-    @RequestMapping("/add/{name}/{price}")
-    public List<Item> addItem(@PathVariable String name, @PathVariable int price){
-        Item item = new Item(name, price);
+    @PostMapping("/add")
+    public Item addItem(@RequestBody Item item){
         itemRepo.save(item);
-        return itemRepo.findAll();
-        //return "Item added! " + name + " " + price + " SEK"; //Om vi vill returnera en sträng
+        return itemRepo.findById(item.getId()).get();
     }
 }
