@@ -1,9 +1,6 @@
 package com.example.webbshopbackend1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.reactive.world.model.UserDto;
-import com.reactive.world.serviceImpl.UserServiceImpl;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -101,11 +98,13 @@ public class ItemControllerTest {
 
     @Test
     void addItemTest() throws Exception {
+        //Annas lösning
+    /*    this.mvc.perform(MockMvcRequestBuilders.post("/items/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"id\":4, \"name\":\"Snow hoodie\", \"price\":\"600\"}"))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.name", equalTo("Snow hoodie")))
+                .andExpect(jsonPath("$.price", equalTo("600")));*/
 
-        
-        this.mvc.perform(MockMvcRequestBuilders.post("/items/add"))
-                .andDo((ResultHandler) contentType(MediaType.APPLICATION_JSON))
-                .andDo((ResultHandler) content("{\"id\":5,\"name\":\"Hoodie\",\"price\":550}"))
     //    Item item = new Item("Fine necklace", 9999);
       //  Mockito.when(mvc.addItem(Mockito.any(Item.class))).thenReturn(item);
 
@@ -114,7 +113,7 @@ public class ItemControllerTest {
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"));*/
-        /*
+
         mvc.perform(MockMvcRequestBuilders
                         .post("/items/add")
                         .content(asJsonString(new Item(4L, "Necklace 4D", 260)))
@@ -124,23 +123,6 @@ public class ItemControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").exists()); //equalTo("Necklace 4D")-*/
     }
 
-    /*
-
-    @RequestMapping("/getAll")
-    public List<Item> getItems(){
-        return itemRepo.findAll();
-    }
-    @RequestMapping("/getByItemId/{id}")
-    public Item getItems(@PathVariable Long id){
-        return itemRepo.findById(id).get();
-    }
-
-    //curl http://localhost:8080/items/add -H "Content-Type:application/json" -d "{\"name\":\"Lola-shirt\", \"price\":1745}" -v
-    @PostMapping("/add")
-    public Item addItem(@RequestBody Item item){
-        itemRepo.save(item);
-        return itemRepo.findById(item.getId()).get();
-    }*/
     public static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
