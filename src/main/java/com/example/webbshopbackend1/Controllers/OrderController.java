@@ -60,13 +60,35 @@ public class OrderController {
    */
 
     //curl -X POST -H "Content-Type: application/json" -d "{\"customerId\":\"1\",\"itemIds\":[\"2\",\"3\"]}" http://localhost:8080/orders/buy/1/2,3
-    @PostMapping(path = "/buy/{customerId}/{itemIds}", consumes = MediaType.APPLICATION_JSON_VALUE)
+   /* @PostMapping(path = "/buy/{customerId}/{itemIds}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public String addOrder(@PathVariable Long customerId, @PathVariable List<Long> itemIds) {
         List<Item> items = new ArrayList<>();
         for (Long itemId :itemIds) {            //måste gå via en for-loop för att kunna lägga till flera av samma id i samma order
             Item item = itemRepo.findById(itemId).orElse(null);
             if (item != null) {
                 items.add(item);
+            }
+        }
+        Customer customer = customerRepo.findById(customerId).orElse(null); //orElse(null) krävs för att inte få 500-fel om obefintligt ID anges
+        if (items != null && customer != null) {
+            orderRepo.save(new Orders(LocalDate.now(), customer, items));
+            return "Order added";
+        } else {
+            return "Order failed";
+        }
+
+    }*/
+
+    @PostMapping(path = "/buy") //curl -X POST -H "Content-Type: application/json" "http://localhost:8080/orders/buy?customerId=1&itemIds=2&itemIds=3"
+    public String addOrder(@RequestParam Long customerId, @RequestParam List<Long> itemIds) {
+        List<Item> items = new ArrayList<>();
+        for (Long itemId :itemIds) {            //måste gå via en for-loop för att kunna lägga till flera av samma id i samma order
+            Item item = itemRepo.findById(itemId).orElse(null);
+            if (item != null) {
+                items.add(item);
+            }
+            else {      //else sats för att breaka metoden att köra vidare
+                return "Order failed";
             }
         }
         Customer customer = customerRepo.findById(customerId).orElse(null); //orElse(null) krävs för att inte få 500-fel om obefintligt ID anges
