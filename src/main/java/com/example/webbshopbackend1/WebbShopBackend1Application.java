@@ -22,7 +22,7 @@ public class WebbShopBackend1Application {
         SpringApplication.run(WebbShopBackend1Application.class, args);
     }
 
-    /*@Bean
+    @Bean
     public CommandLineRunner bootstrap(ItemRepo itemRepo, CustomerRepo customerRepo, OrderRepo orderRepo) {
         return (args) -> {
             Item item1 = new Item("Sweatshirt", 499);
@@ -60,6 +60,6 @@ public class WebbShopBackend1Application {
             orderRepo.save(order2);
             orderRepo.save(order3);
         };
-    }*/
+    }
 
 }
