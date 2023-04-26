@@ -19,7 +19,7 @@ public class Orders {
     private Long id;
     private LocalDate date;
 
-    @OneToOne
+    @ManyToOne // (optional = false)    ifall vi vill att det måste finnas en kund kopplad till beställningen
     @JoinColumn
     private Customer customer;
 
