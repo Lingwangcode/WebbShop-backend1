@@ -19,7 +19,7 @@ public class ItemController {
     public List<Item> getItems(){
         return itemRepo.findAll();
     }
-    @RequestMapping("/{id}")
+    @RequestMapping("/getByItemId/{id}")
     public Item getItems(@PathVariable Long id){
         return itemRepo.findById(id).get();
     }
