@@ -2,9 +2,7 @@ package com.example.webbshopbackend1.Controllers;
 
 import com.example.webbshopbackend1.Models.Customer;
 import com.example.webbshopbackend1.Repos.CustomerRepo;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,11 +25,11 @@ public class CustomerController {
     public Customer getCustomerById(@PathVariable Long id) {
         return customerRepo.findById(id).orElse(null);
     }
-
-    @RequestMapping("/add/{name}/{socSec}")
-    public List<Customer> addCustomer(@PathVariable String name, @PathVariable String socSec) {
-        Customer customer = new Customer(name, socSec);
+    //curl http://localhost:8080/customers/add -H "Content-Type:application/json" -d "{\"name\":\"baby\", \"socialSecurityNumber\":\"222222\"}" -v
+    @PostMapping("/add")
+    public Customer addCustomer(@RequestBody Customer customer){
         customerRepo.save(customer);
-        return customerRepo.findAll();
+        return customerRepo.findById(customer.getId()).get();
     }
+
 }
