@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController         //eller ska det vara bara @Controller eftersom vi ska jobba med templating sen?
+@RestController
 @RequestMapping("/customers")
 public class CustomerController {
 
