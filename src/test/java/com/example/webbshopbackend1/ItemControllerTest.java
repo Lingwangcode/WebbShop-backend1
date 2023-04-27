@@ -96,23 +96,19 @@ public class ItemControllerTest {
                 .andExpect(jsonPath("$.price", equalTo(150)));
     }
 
-   /* @Test
-    void addTest(){
-        Item item1 = new Item(1L, "Joggers", 599);
-
-        when(itemRepo.findById(1L)).thenReturn(Optional.of(item1));
+    @Test
+    void addTest() throws Exception {
         mvc.perform(MockMvcRequestBuilders
                         .post("/items/add")
-                        .content(asJsonString(item1))
+                        .content("{\"id\":1, \"name\":\"NicePants\", \"price\":\"10000\"}")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Saved Joggers"));
+                .andExpect(content().string("Saved NicePants"));
 
-        itemRepo.save(item1);
-        return "Saved " + item.getName();
-    }*/
+    }
 
+    //Nedan följer det kladdiga resultatet av en förvirrad Marias tester av add-funktionalitet med item som returtyp
     /*
     @Test
     void addItemTest() throws Exception {
