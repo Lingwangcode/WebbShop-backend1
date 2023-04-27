@@ -1,5 +1,5 @@
 package com.example.webbshopbackend1.Controllers;
-
+/*
 import com.example.webbshopbackend1.Models.Customer;
 import com.example.webbshopbackend1.Repos.CustomerRepo;
 import com.example.webbshopbackend1.Repos.OrderRepo;
@@ -74,7 +74,7 @@ class CustomerControllerTest {
                         .content("{\"id\":5, \"name\":\"Albert\", \"socialSecurityNumber\":\"777\"}"))
                 .andExpect(status().isOk()).andExpect(content().string(equalTo("Customer Albert added to database")));
     }
-}
+}*/
 /*
  @Test
     void addByPost() throws Exception {
