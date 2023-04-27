@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("/items")
+@RequestMapping("/items2")
 public class ItemHTMLController {
 
     private final ItemRepo itemRepo;
@@ -27,12 +27,12 @@ public class ItemHTMLController {
         model.addAttribute("items", itemList);
         return "items";
     }
-
+/*
     @RequestMapping(path = "/deleteById/{id}")
-    public String getItems(@PathVariable Long id, Model model){
+    public String deleteItem(@PathVariable Long id, Model model){
         itemRepo.deleteById(id);
         return items(model);
-    }
+    }*/
 
     @RequestMapping( "/addItem")
     public String itemAdded(@RequestParam String itemName, @RequestParam int itemPrice, Model model){

@@ -10,7 +10,7 @@
 <h1>Items! Items!! More items!!!</h1>
 <div class="container">
     <div class="row">
-        <div class="col-xl-3 my-3" th:each="item : ${items}">
+        <div class="col-xl-3 my-3" th:each="item : ${items}" th:unless="${#lists.isEmpty(items)}">
             <div class="card" style="width: 15rem;">
                 <img class="card-img-top" src="https://picsum.photos/200" alt="Item image">
                 <div class="card-body">
@@ -18,18 +18,19 @@
                     <hr>
                     <p class="card-text" th:text = "${item.getPrice()} + ' SEK'"></p>
                     <a href="#" class="btn btn-primary">Buy</a>
-                </div>
-                <button type="button" th:href="@{/items/deleteById/{id}(id=${item.getId()})}" class="btn btn-danger">Remove item</button>
+              <!--      <a th:href="@{/items2/deleteById/{id}(id=${item.getId()})}">Delete</a>
+                <button type="button" th:href="@{/items2/deleteById/{id}(id=${item.getId()})}" class="btn btn-danger">Remove item</button>-->
             </div>
         </div>
     </div>
-    <form action="addItem" method="post"> <!--@{add/{name(name=itemName)}/{price}(price=itemPrice)}-->
+    <form action="addItem" class="my-3" method="post"> <!--@{add/{name(name=itemName)}/{price}(price=itemPrice)}-->
         <label for="itemName">Name</label><br>
         <input type="text" id="itemName" name="itemName" value=""><br>
         <label for="itemPrice">Price</label><br>
         <input type="text" id="itemPrice" name="itemPrice" value=""><br>
         <input type="submit" value="Add item">
     </form>
+</div>
 </div>
 
 <!--<container>
@@ -42,6 +43,7 @@
             </div>
         </div>
     </div>-->
+<!-- kladd
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
@@ -57,7 +59,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 </container>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
