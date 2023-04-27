@@ -2,6 +2,7 @@ package com.example.webbshopbackend1.Controllers;
 /*
 import com.example.webbshopbackend1.Models.Customer;
 import com.example.webbshopbackend1.Repos.CustomerRepo;
+import com.example.webbshopbackend1.Repos.OrderRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.equalTo;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 class CustomerControllerTest {
@@ -33,10 +35,12 @@ class CustomerControllerTest {
     private CustomerRepo mockRepo;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         Customer c1 = new Customer(1L, "Athos", "123");
         Customer c2 = new Customer(2L, "Porthos", "456");
         Customer c3 = new Customer(3L, "Aramis", "789");
+
+
 
         when(mockRepo.findById(1L)).thenReturn(Optional.of(c1));
         when(mockRepo.findById(2L)).thenReturn(Optional.of(c2));
@@ -52,6 +56,7 @@ class CustomerControllerTest {
                 .andExpect(jsonPath("$[2].socialSecurityNumber", equalTo("789")))
                 .andExpect(jsonPath("$[2].name", not(equalTo("Albert"))));
     }
+
     @Test
     void getCustomerById() throws Exception {
         this.mockMvc.perform(get("/customers/getById/1")).andExpect(status().isOk())
@@ -63,13 +68,11 @@ class CustomerControllerTest {
                 .andExpect(jsonPath("$.id", not(equalTo(5))));
     }
 
-
     @Test
     void addCustomer() throws Exception {
-        this.mockMvc.perform(post("/customers/add").contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\":5, \"name\":\"Albert\", \"socialSecurityNumber\":\"777\"}"))
-                .andExpect(status().isOk()).andExpect(jsonPath("$.name", equalTo("Albert")))
-                .andExpect(jsonPath("$.socialSecurityNumber", equalTo("777")));
+        this.mockMvc.perform(post("/customers/addString").contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"id\":5, \"name\":\"Albert\", \"socialSecurityNumber\":\"777\"}"))
+                .andExpect(status().isOk()).andExpect(content().string(equalTo("Customer Albert added to database")));
     }
 }*/
 /*
