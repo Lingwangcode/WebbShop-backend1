@@ -70,16 +70,8 @@ class CustomerControllerTest {
 
     @Test
     void addCustomer() throws Exception {
-        this.mockMvc.perform(post("/customers/addString").contentType(MediaType.APPLICATION_JSON)
+        this.mockMvc.perform(post("/customers/add").contentType(MediaType.APPLICATION_JSON)
                         .content("{\"id\":5, \"name\":\"Albert\", \"socialSecurityNumber\":\"777\"}"))
                 .andExpect(status().isOk()).andExpect(content().string(equalTo("Customer Albert added to database")));
     }
 }
-/*
- @Test
-    void addByPost() throws Exception {
-        this.mvc.perform(post("/category/addByPost").contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"id\":5, \"category\":\"cotton\"}"))
-                .andExpect(status().isOk()).andExpect(content().string(equalTo("Category cotton added")));
-    }
- */
