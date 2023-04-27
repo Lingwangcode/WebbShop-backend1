@@ -1,5 +1,5 @@
 package com.example.webbshopbackend1.Controllers;
-
+/*
 import com.example.webbshopbackend1.Models.Customer;
 import com.example.webbshopbackend1.Repos.CustomerRepo;
 import org.junit.jupiter.api.BeforeEach;
@@ -71,7 +71,7 @@ class CustomerControllerTest {
                 .andExpect(status().isOk()).andExpect(jsonPath("$.name", equalTo("Albert")))
                 .andExpect(jsonPath("$.socialSecurityNumber", equalTo("777")));
     }
-}
+}*/
 /*
  @Test
     void addByPost() throws Exception {

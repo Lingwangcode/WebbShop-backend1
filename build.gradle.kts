@@ -19,6 +19,7 @@ repositories {
 }
 
 dependencies {
+	implementation("org.thymeleaf:thymeleaf:3.1.1.RELEASE")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	compileOnly("org.projectlombok:lombok")
