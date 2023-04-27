@@ -1,5 +1,5 @@
 package com.example.webbshopbackend1.Controllers;
-/*
+
 import com.example.webbshopbackend1.Models.Customer;
 import com.example.webbshopbackend1.Repos.CustomerRepo;
 import com.example.webbshopbackend1.Repos.OrderRepo;
@@ -41,7 +41,6 @@ class CustomerControllerTest {
         Customer c3 = new Customer(3L, "Aramis", "789");
 
 
-
         when(mockRepo.findById(1L)).thenReturn(Optional.of(c1));
         when(mockRepo.findById(2L)).thenReturn(Optional.of(c2));
         when(mockRepo.findById(3L)).thenReturn(Optional.of(c3));
@@ -74,12 +73,15 @@ class CustomerControllerTest {
                         .content("{\"id\":5, \"name\":\"Albert\", \"socialSecurityNumber\":\"777\"}"))
                 .andExpect(status().isOk()).andExpect(content().string(equalTo("Customer Albert added to database")));
     }
-}*/
-/*
- @Test
+}
+
+    /*
+    @Test
     void addByPost() throws Exception {
         this.mvc.perform(post("/category/addByPost").contentType(MediaType.APPLICATION_JSON)
                         .content("{\"id\":5, \"category\":\"cotton\"}"))
                 .andExpect(status().isOk()).andExpect(content().string(equalTo("Category cotton added")));
     }
- */
+
+
+     */
