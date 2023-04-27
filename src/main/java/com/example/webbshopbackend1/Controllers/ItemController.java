@@ -26,8 +26,8 @@ public class ItemController {
 
     //curl http://localhost:8080/items/add -H "Content-Type:application/json" -d "{\"name\":\"Lola-shirt\", \"price\":1745}" -v
     @PostMapping("/add")
-    public Item addItem(@RequestBody Item item){
+    public String addItem(@RequestBody Item item){
         itemRepo.save(item);
-        return itemRepo.findById(item.getId()).get();
+        return "Saved " + item.getName();
     }
 }

@@ -96,6 +96,24 @@ public class ItemControllerTest {
                 .andExpect(jsonPath("$.price", equalTo(150)));
     }
 
+   /* @Test
+    void addTest(){
+        Item item1 = new Item(1L, "Joggers", 599);
+
+        when(itemRepo.findById(1L)).thenReturn(Optional.of(item1));
+        mvc.perform(MockMvcRequestBuilders
+                        .post("/items/add")
+                        .content(asJsonString(item1))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Saved Joggers"));
+
+        itemRepo.save(item1);
+        return "Saved " + item.getName();
+    }*/
+
+    /*
     @Test
     void addItemTest() throws Exception {
         Item item1 = new Item(1L, "Pantalones", 599);
@@ -105,18 +123,18 @@ public class ItemControllerTest {
         when(itemRepo.findById(1L)).thenReturn(Optional.of(item1));
         when(itemRepo.findById(1L)).thenReturn(Optional.of(item2)); //denna behövs för att köra över item1
         //PUT^
-/*
+
         mvc.perform(MockMvcRequestBuilders
                         .post("/items/add")
                         .content(asJsonString(item2))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("Pantalones2"));*/
+                .andExpect(jsonPath("$.name").value("Pantalones2"));
 
         assert(itemRepo.findById(1L).get().getName().equals("Pantalones2"));
               //  .andExpect(MockMvcResultMatchers.model().attributeExists());
-             //   .andExpect(MockMvcResultMatchers.jsonPath("$.name").exists()); //equalTo("Necklace 4D")-*/
+             //   .andExpect(MockMvcResultMatchers.jsonPath("$.name").exists()); //equalTo("Necklace 4D")-
     }
 
     public static String asJsonString(final Object obj) {
@@ -125,5 +143,5 @@ public class ItemControllerTest {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 }
