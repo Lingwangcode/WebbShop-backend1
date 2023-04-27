@@ -98,25 +98,18 @@ public class ItemControllerTest {
 
     @Test
     void addItemTest() throws Exception {
-        //Annas lösning
-    /*    this.mvc.perform(MockMvcRequestBuilders.post("/items/add")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"id\":4, \"name\":\"Snow hoodie\", \"price\":\"600\"}"))
-                .andExpect(status().isOk()).andExpect(jsonPath("$.name", equalTo("Snow hoodie")))
-                .andExpect(jsonPath("$.price", equalTo("600")));*/
+        Item item1 = new Item(1L, "Joggers", 599);
+        Item item2 = new Item(2L, "Black sneakers", 859);
+        Item item3 = new Item(3L, "Spongebob T-shirt", 150);
 
-    //    Item item = new Item("Fine necklace", 9999);
-      //  Mockito.when(mvc.addItem(Mockito.any(Item.class))).thenReturn(item);
-
-    /*    mvc.perform(MockMvcRequestBuilders.post("/items/add")
-                        .content(asJsonString(item))
-                        .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=UTF-8"));*/
+        when(itemRepo.findById(1L)).thenReturn(Optional.of(item1));
+        when(itemRepo.findById(2L)).thenReturn(Optional.of(item2));
+        when(itemRepo.findById(3L)).thenReturn(Optional.of(item3));
+        when(itemRepo.findAll()).thenReturn(Arrays.asList(item1, item2, item3));
 
         mvc.perform(MockMvcRequestBuilders
                         .post("/items/add")
-                        .content(asJsonString(new Item(4L, "Necklace 4D", 260)))
+                        .content(asJsonString(item1))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
