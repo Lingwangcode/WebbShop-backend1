@@ -84,8 +84,10 @@ public class OrderController {
         List<Item> items = new ArrayList<>();
         for (Long itemId :itemIds) {            //måste gå via en for-loop för att kunna lägga till flera av samma id i samma order
             Item item = itemRepo.findById(itemId).orElse(null);
-            if (item != null) {
+            if (item != null && item.getStock()>0) {
                 items.add(item);
+                item.setStock(item.getStock()-1);
+                itemRepo.save(item);
             }
             else {      //else sats för att breaka metoden att köra vidare
                 return "Order failed";

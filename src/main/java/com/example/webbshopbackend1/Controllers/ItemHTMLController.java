@@ -9,7 +9,6 @@ import com.example.webbshopbackend1.Repos.OrderRepo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -45,9 +44,10 @@ public class ItemHTMLController {
         return items(model);
     }*/
 
-    @RequestMapping( "/addItem")
-    public String itemAdded(@RequestParam String itemName, @RequestParam int itemPrice, Model model){
-        itemRepo.save(new Item(itemName, itemPrice));
+    @RequestMapping("/addItem")
+    public String itemAdded(@RequestParam String itemName, @RequestParam int itemPrice,
+                            @RequestParam int itemStock, Model model) {
+        itemRepo.save(new Item(itemName, itemPrice, itemStock));
         return items(model);
     }
 
