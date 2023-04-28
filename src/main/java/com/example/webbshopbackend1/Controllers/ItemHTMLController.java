@@ -54,8 +54,10 @@ public class ItemHTMLController {
     @RequestMapping("/buyItemPage/{id}")
     public String buyItemPageWithId(@PathVariable Long id, Model model){
         Item item = itemRepo.findById(id).get();
+        item.setStock(item.getStock()-1);
+        itemRepo.save(item);
         model.addAttribute("item", item);
-        return "buyItem.html";
+        return "buyItem";
     }
 
     /*
@@ -64,15 +66,15 @@ public class ItemHTMLController {
         return "buyItem.html";
     }*/
 
-    @RequestMapping(path = "/buy/{itemId}/{customerId}")
-    public String addOrder(@PathVariable Long customerId, @PathVariable Long itemId) {
+    @RequestMapping(path = "/buy")
+    public String addOrder(@RequestParam Long customerId, @RequestParam Long itemId) {
         Item item = itemRepo.findById(itemId).get();
         Customer customer = customerRepo.findById(customerId).orElse(null); //orElse(null) krävs för att inte få 500-fel om obefintligt ID anges
         if (item != null && customer != null) {
             orderRepo.save(new Orders(LocalDate.now(), customer, List.of(item)));
-            return "orders.html";
+            return "orders";
         } else {
-            return "buyItem.html";
+            return "orders";
         }
 
     }

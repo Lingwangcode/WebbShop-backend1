@@ -8,22 +8,45 @@
 </head>
 <body>
 <container>
-<form class="align-items-end" action="#"
-      th:action="@{/itemHTML/buy}">
-  <div class="form-group">
-    <label th:text="'Item id: ' + ${item.getId()}" id="itemId" style="font-size: 20px; margin-top: 25px">Item id: add here...</label><br>
+  <div class="row">
+    <div class="col-xl-3 my-3 d-flex align-items-stretch">
+      <div class="card bg-light" style="width: 15rem;">
+        <div class="card-header">
+          <h3>Add order</h3>
+        </div>
+        <div class="card-body">
+          <form class="align-items-end" action="buy" method="post"
+                th:action="@{/itemHTML/buy}">
+            <div class="form-group">
+              <label th:text="'Item id: ' + ${item.getId()}" name="itemId" value="${item.getId()}" style="font-size: 150%; margin-top: 2%">Item id: add here...</label><br>
+              <input type="text" id="itemId" name="itemId" th:value="${item.getId()}" style="margin-bottom: 145px" readonly><br>
+            </div>
+            <div class="form-group">
+              <label for="customerId" style="font-size: 150%; margin-top: 2%">Customer id: </label><br>
+              <input type="text" id="customerId" name="customerId" style="margin-bottom: 145px" value=""><br>
+            </div>
+            <div class="form-group" style="border-top: 1px solid #dee2e6">
+              <a >
+                <button type="submit" class="btn btn-primary" >Submit</button>
+              </a>
+            </div>
+          </form>
+
+        </div>
+
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <label for="customerId" style="font-size: 20px; margin-top: 25px">Customer id: </label><br>
-    <input type="text" id="customerId" name="customerId" style="margin-bottom: 145px" value=""><br>
-  </div>
-  <div class="form-group" style="border-top: 1px solid #dee2e6">
-    <a th:href="@{/itemHTML/buy/{itemId}(itemId=${item.id})/{customerID}(customerId=???)}">
-      <button type="submit" class="btn btn-primary"  >Submit</button>
-    </a>
-  </div>
-</form>
+
 </container>
+
+<script>
+  const customerId = document.getElementById('customerId').value;
+  const link = document.querySelector('a');
+  const href = link.getAttribute('href');
+  const updatedHref = href.replace('X', customerId);
+  link.setAttribute('href', updatedHref);
+</script><!-- /{customerId}(customerId=X) name="customerId"-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -22,8 +22,7 @@
                     <hr>
                     <p class="card-text" th:text = "${item.getPrice()} + ' SEK'"></p>
                     <p class="card-text" th:text = "${item.getStock()} + ' in stock'"></p>
-                    <a href="#" class="btn btn-primary">Buy</a>
-                    <a th:href="@{/itemHTML/buyItemPage/{id}(id=${item.id})}" > <!-- action="buyItemPage" method="post" data-th-action="@{/buyItemPage}"data-th-object="${item.getId()}"  th:href="@{/itemHTML/buyItemPage}"-->
+                    <a th:href="@{/itemHTML/buyItemPage/{id}(id=${item.id})}" >
                         <button type="submit" class="btn btn-primary"  >Buy</button>
                     </a>
               <!--      <a th:href="@{/items2/deleteById/{id}(id=${item.getId()})}">Delete</a>
