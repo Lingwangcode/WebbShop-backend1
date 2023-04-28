@@ -21,17 +21,17 @@ public class WebbShopBackend1Application {
     public static void main(String[] args) {
         SpringApplication.run(WebbShopBackend1Application.class, args);
     }
-/*
+
     @Bean
     public CommandLineRunner bootstrap(ItemRepo itemRepo, CustomerRepo customerRepo, OrderRepo orderRepo) {
         return (args) -> {
-            Item item1 = new Item("Sweatshirt", 499);
-            Item item2 = new Item("Tophat", 299);
-            Item item3 = new Item("Cool jeans", 799);
-            Item item4 = new Item("Pearl bracelet", 1299);
-            Item item5 = new Item("White t-shirt", 99);
-            Item item6 = new Item("Black t-shirt", 99);
-            Item item7 = new Item("Yellow t-shirt", 99);
+            Item item1 = new Item("Sweatshirt", 499, 10);
+            Item item2 = new Item("Tophat", 299, 20);
+            Item item3 = new Item("Cool jeans", 799, 30);
+            Item item4 = new Item("Pearl bracelet", 1299, 1);
+            Item item5 = new Item("White t-shirt", 99, 15);
+            Item item6 = new Item("Black t-shirt", 99, 16);
+            Item item7 = new Item("Yellow t-shirt", 99, 17);
 
             itemRepo.save(item1);
             itemRepo.save(item2);
@@ -61,7 +61,4 @@ public class WebbShopBackend1Application {
             orderRepo.save(order3);
         };
     }
-
-
- */
 }

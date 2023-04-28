@@ -46,10 +46,11 @@ public class OrderControllerTest {
         Customer customer1 = new Customer(1L,"Amy","546789");
         Customer customer2 = new Customer(2L,"Joe","789654");
         Customer customer3 = new Customer(3L,"Sara","523698");
-        Item item1 = new Item(1L, "White T-shirt", 399);
-        Item item2 = new Item(2L, "Red T-shirt", 399);
-        Item item3 = new Item(3L, "Yellow T-shirt", 299);
-        Item item4 = new Item(4L, "Green T-shirt", 299);
+        Item item1 = new Item(1L, "White T-shirt", 399,10);
+        Item item2 = new Item(2L, "Red T-shirt", 399,10);
+        Item item3 = new Item(3L, "Yellow T-shirt", 299,10);
+        Item item4 = new Item(4L, "Green T-shirt", 299,10);
+        Item item5 = new Item(5L, "Blue T-shirt", 299,0);
         Orders order1 = new Orders(1L, LocalDate.of(2023,04,26),customer1, List.of(item1,item2));
         Orders order2 = new Orders(2L, LocalDate.of(2023,04,26),customer2, List.of(item3,item4));
         Orders order3 = new Orders(3L, LocalDate.of(2023,04,26),customer3, List.of(item1));
@@ -79,13 +80,15 @@ public class OrderControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("[{\"id\":1,\"date\":\"2023-04-26\"," +
                         "\"customer\":{\"id\":1,\"name\":\"Amy\",\"socialSecurityNumber\":\"546789\"}," +
-                        "\"items\":[{\"id\":1,\"name\":\"White T-shirt\",\"price\":399}," +
-                        "{\"id\":2,\"name\":\"Red T-shirt\",\"price\":399}]}," + "{\"id\":2,\"date\":\"2023-04-26\"," +
+                        "\"items\":[{\"id\":1,\"name\":\"White T-shirt\",\"price\":399,\"stock\":10}," +
+                        "{\"id\":2,\"name\":\"Red T-shirt\",\"price\":399,\"stock\":10}]}," +
+                        "{\"id\":2,\"date\":\"2023-04-26\"," +
                         "\"customer\":{\"id\":2,\"name\":\"Joe\",\"socialSecurityNumber\":\"789654\"}," +
-                        "\"items\":[{\"id\":3,\"name\":\"Yellow T-shirt\",\"price\":299}," +
-                        "{\"id\":4,\"name\":\"Green T-shirt\",\"price\":299}]}," + "{\"id\":3,\"date\":\"2023-04-26\"," +
+                        "\"items\":[{\"id\":3,\"name\":\"Yellow T-shirt\",\"price\":299,\"stock\":10}," +
+                        "{\"id\":4,\"name\":\"Green T-shirt\",\"price\":299,\"stock\":10}]}," +
+                        "{\"id\":3,\"date\":\"2023-04-26\"," +
                         "\"customer\":{\"id\":3,\"name\":\"Sara\",\"socialSecurityNumber\":\"523698\"}," +
-                        "\"items\":[{\"id\":1,\"name\":\"White T-shirt\",\"price\":399}]}]"
+                        "\"items\":[{\"id\":1,\"name\":\"White T-shirt\",\"price\":399,\"stock\":10}]}]"
                 ));
 
     }
@@ -97,8 +100,8 @@ public class OrderControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("[{\"id\":1,\"date\":\"2023-04-26\"," +
                         "\"customer\":{\"id\":1,\"name\":\"Amy\",\"socialSecurityNumber\":\"546789\"}," +
-                        "\"items\":[{\"id\":1,\"name\":\"White T-shirt\",\"price\":399}," +
-                        "{\"id\":2,\"name\":\"Red T-shirt\",\"price\":399}]}]"
+                        "\"items\":[{\"id\":1,\"name\":\"White T-shirt\",\"price\":399,\"stock\":10}," +
+                        "{\"id\":2,\"name\":\"Red T-shirt\",\"price\":399,\"stock\":10}]}]"
                 ));
 
     }
@@ -114,7 +117,11 @@ public class OrderControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("Order failed"));
 
-        this.mockMvc.perform(post("/orders/buy?customerId=4&itemIds=3&itemIds=6"))
+        this.mockMvc.perform(post("/orders/buy?customerId=1&itemIds=5"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Order failed"));
+
+        this.mockMvc.perform(post("/orders/buy?customerId=3&itemIds=3&itemIds=6"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Order failed"));
 

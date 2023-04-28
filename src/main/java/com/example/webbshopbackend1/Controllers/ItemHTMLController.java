@@ -21,7 +21,7 @@ public class ItemHTMLController {
 
 
     @RequestMapping("/getAll")
-    public String items(Model model){ //Model är vår "plastpåse"
+    public String items(Model model) { //Model är vår "plastpåse"
         List<Item> itemList = itemRepo.findAll();
         model.addAttribute("items", itemList);
         return "items";
@@ -33,9 +33,10 @@ public class ItemHTMLController {
         return items(model);
     }*/
 
-    @RequestMapping( "/addItem")
-    public String itemAdded(@RequestParam String itemName, @RequestParam int itemPrice, Model model){
-        itemRepo.save(new Item(itemName, itemPrice));
+    @RequestMapping("/addItem")
+    public String itemAdded(@RequestParam String itemName, @RequestParam int itemPrice,
+                            @RequestParam int itemStock, Model model) {
+        itemRepo.save(new Item(itemName, itemPrice, itemStock));
         return items(model);
     }
 
