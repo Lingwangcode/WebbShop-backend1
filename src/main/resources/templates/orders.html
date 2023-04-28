@@ -10,6 +10,14 @@
 
     <div class="container">
         <div class="row">
+
+            <form action="save" class="my-3" method="post"> <!--@{add/{name(name=itemName)}/{price}(price=itemPrice)}-->
+                <label for="customerId">Customer Id:</label><br>
+                <input type="text" id="customerId" name="customerId" value=""><br>
+                <label for="itemIds">Item Ids:</label><br>
+                <input type="text" id="itemIds" name="itemIds" placeholder="Use , to separate ids" value=""><br>
+                <input type="submit" value="Add item">
+            </form>
             <div class="col-xl-3 my-3" th:each="order : ${allOrders}" th:unless="${#lists.isEmpty(allOrders)}">
                 <div class="card bg-warning" style="width: 15rem;">
                     <div class="card-body">
