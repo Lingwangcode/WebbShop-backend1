@@ -17,7 +17,9 @@
                     <p class="card-title" th:text = "${item.getName()}"></p>
                     <hr>
                     <p class="card-text" th:text = "${item.getPrice()} + ' SEK'"></p>
-                    <a href="#" class="btn btn-primary">Buy</a>
+                    <a th:href="@{/itemHTML/buyItemPage/{id}(id=${item.id})}" > <!-- action="buyItemPage" method="post" data-th-action="@{/buyItemPage}"data-th-object="${item.getId()}"  th:href="@{/itemHTML/buyItemPage}"-->
+                        <button type="submit" class="btn btn-primary"  >Buy</button>
+                    </a>
               <!--      <a th:href="@{/items2/deleteById/{id}(id=${item.getId()})}">Delete</a>
                 <button type="button" th:href="@{/items2/deleteById/{id}(id=${item.getId()})}" class="btn btn-danger">Remove item</button>-->
             </div>
@@ -26,6 +28,8 @@
     <form action="addItem" class="my-3" method="post"> <!--@{add/{name(name=itemName)}/{price}(price=itemPrice)}-->
         <label for="itemName">Name</label><br>
         <input type="text" id="itemName" name="itemName" value=""><br>
+        <label for="itemPrice">Price</label><br>
+        <input type="text" id="itemPrice" name="itemPrice" value=""><br>
         <label for="itemPrice">Price</label><br>
         <input type="text" id="itemPrice" name="itemPrice" value=""><br>
         <input type="submit" value="Add item">
