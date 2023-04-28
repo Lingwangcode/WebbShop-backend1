@@ -13,18 +13,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/itemHTML")
 public class ItemHTMLController {
+    private final OrderHTMLController orderHTMLController;
 
     private final ItemRepo itemRepo;
     private final OrderRepo orderRepo;
     private final CustomerRepo customerRepo;
 
-    public ItemHTMLController(ItemRepo itemRepo, OrderRepo orderRepo, CustomerRepo customerRepo) {
+    public ItemHTMLController(OrderHTMLController orderHTMLController, ItemRepo itemRepo, OrderRepo orderRepo, CustomerRepo customerRepo) {
+        this.orderHTMLController = orderHTMLController;
         this.itemRepo = itemRepo;
         this.orderRepo = orderRepo;
         this.customerRepo = customerRepo;
@@ -53,6 +54,11 @@ public class ItemHTMLController {
 
     @RequestMapping("/buyItemPage/{id}")
     public String buyItemPageWithId(@PathVariable Long id, Model model){
+        List<Customer> customers = customerRepo.findAll();
+        model.addAttribute("allCustomers", customers);
+        model.addAttribute("nameTitle", "Full name");
+        model.addAttribute("ssnTitle", "Social security number");
+        model.addAttribute("headline", "All customers");
         Item item = itemRepo.findById(id).get();
         item.setStock(item.getStock()-1);
         itemRepo.save(item);
@@ -67,14 +73,14 @@ public class ItemHTMLController {
     }*/
 
     @RequestMapping(path = "/buy")
-    public String addOrder(@RequestParam Long customerId, @RequestParam Long itemId) {
+    public String addOrder(@RequestParam Long customerId, @RequestParam Long itemId, Model model) {
         Item item = itemRepo.findById(itemId).get();
         Customer customer = customerRepo.findById(customerId).orElse(null); //orElse(null) krävs för att inte få 500-fel om obefintligt ID anges
         if (item != null && customer != null) {
             orderRepo.save(new Orders(LocalDate.now(), customer, List.of(item)));
-            return "orders";
+            return orderHTMLController.getAllOrders(model);
         } else {
-            return "orders";
+            return orderHTMLController.getAllOrders(model);
         }
 
     }
