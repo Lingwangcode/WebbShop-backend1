@@ -1,4 +1,4 @@
-package com.example.webbshopbackend1;
+package com.example.webbshopbackend1.Controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;

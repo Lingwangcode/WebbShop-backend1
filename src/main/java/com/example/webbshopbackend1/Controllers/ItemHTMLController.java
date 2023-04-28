@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("/items2")
+@RequestMapping("/itemHTML")
 public class ItemHTMLController {
 
     private final ItemRepo itemRepo;
