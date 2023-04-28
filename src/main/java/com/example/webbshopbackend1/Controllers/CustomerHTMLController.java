@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping ("/customerHTML")
+@RequestMapping("/customerHTML")
 public class CustomerHTMLController {
     private final CustomerRepo customerRepo;
 
@@ -18,7 +18,7 @@ public class CustomerHTMLController {
     }
 
     @RequestMapping("/getAll")
-    public String getAllCustomers(Model model){
+    public String getAllCustomers(Model model) {
         List<Customer> customers = customerRepo.findAll();
         model.addAttribute("allCustomers", customers);
         model.addAttribute("nameTitle", "Full name");
@@ -28,7 +28,8 @@ public class CustomerHTMLController {
     }
 
     @RequestMapping("/getById/{id}")
-    public String getById(@PathVariable Long id, Model model){
+    public String getById(@PathVariable Long id, Model model) {
+
         Customer customer = customerRepo.findById(id).orElse(null);
         model.addAttribute("fullname", customer.getName());
         model.addAttribute("ssn", customer.getSocialSecurityNumber());
@@ -36,14 +37,23 @@ public class CustomerHTMLController {
         model.addAttribute("nameTitle", "Full name");
         model.addAttribute("ssnTitle", "Social security number");
         model.addAttribute("idTitle", "Customer ID");
-        model.addAttribute("headline", "All information on customer");
+        model.addAttribute("deleted", false);
+
+        return "one-customer.html";
+    }
+
+    @RequestMapping("/deleteById/{id}")
+    public String delete(@PathVariable Long id, Model model) {
+        customerRepo.deleteById(id);
+        model.addAttribute("message", "CUSTOMER DELETED!");
+        model.addAttribute("deleted", true);
         return "one-customer.html";
     }
 
     @PostMapping("/save")
-    public String save (@RequestParam String fullname,
-                        @RequestParam String ssn, Model model){
-        customerRepo.save(new Customer(fullname,ssn));
+    public String save(@RequestParam String fullname,
+                       @RequestParam String ssn, Model model) {
+        customerRepo.save(new Customer(fullname, ssn));
         return getAllCustomers(model);
     }
 
