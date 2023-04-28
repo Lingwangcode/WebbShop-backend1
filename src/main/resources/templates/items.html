@@ -21,6 +21,7 @@
                     <p class="card-title" th:text = "${item.getName()}"></p>
                     <hr>
                     <p class="card-text" th:text = "${item.getPrice()} + ' SEK'"></p>
+                    <p class="card-text" th:text = "${item.getStock()} + ' in stock'"></p>
                     <a href="#" class="btn btn-primary">Buy</a>
               <!--      <a th:href="@{/items2/deleteById/{id}(id=${item.getId()})}">Delete</a>
                 <button type="button" th:href="@{/items2/deleteById/{id}(id=${item.getId()})}" class="btn btn-danger">Remove item</button>-->
@@ -32,6 +33,8 @@
         <input type="text" id="itemName" name="itemName" value=""><br>
         <label for="itemPrice">Price</label><br>
         <input type="text" id="itemPrice" name="itemPrice" value=""><br>
+        <label for="itemStock">Stock</label><br>
+        <input type="text" id="itemStock" name="itemStock" value=""><br>
         <input type="submit" value="Add item">
     </form>
 </div>
