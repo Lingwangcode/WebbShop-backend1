@@ -20,7 +20,7 @@ public class ItemHTMLController {
     }
 
 
-    @RequestMapping("/all")
+    @RequestMapping("/getAll")
     public String items(Model model){ //Model är vår "plastpåse"
         List<Item> itemList = itemRepo.findAll();
         model.addAttribute("items", itemList);

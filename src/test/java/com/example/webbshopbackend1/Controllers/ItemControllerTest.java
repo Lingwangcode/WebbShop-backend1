@@ -80,17 +80,17 @@ public class ItemControllerTest {
 
     @Test
     void getItemByIdTest() throws Exception {
-        this.mvc.perform(get("/items/getByItemId/1")).andExpect(status().isOk())
+        this.mvc.perform(get("/items/getById/1")).andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", equalTo("Joggers")))
                 .andExpect(jsonPath("$.id", equalTo(1)))
                 .andExpect(jsonPath("$.price", equalTo(599)));
 
-        this.mvc.perform(get("/items/getByItemId/2")).andExpect(status().isOk())
+        this.mvc.perform(get("/items/getById/2")).andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", equalTo("Black sneakers")))
                 .andExpect(jsonPath("$.id", equalTo(2)))
                 .andExpect(jsonPath("$.price", equalTo(859)));
 
-        this.mvc.perform(get("/items/getByItemId/3")).andExpect(status().isOk())
+        this.mvc.perform(get("/items/getById/3")).andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", equalTo("Spongebob T-shirt")))
                 .andExpect(jsonPath("$.id", equalTo(3)))
                 .andExpect(jsonPath("$.price", equalTo(150)));
