@@ -24,7 +24,7 @@ public class CustomerHTMLController {
         model.addAttribute("nameTitle", "Full name");
         model.addAttribute("ssnTitle", "Social security number");
         model.addAttribute("headline", "All customers");
-        return "allCustomers.html";
+        return "all-customers.html";
     }
 
     @RequestMapping("/getById/{id}")
@@ -37,7 +37,7 @@ public class CustomerHTMLController {
         model.addAttribute("ssnTitle", "Social security number");
         model.addAttribute("idTitle", "Customer ID");
         model.addAttribute("headline", "All information on customer");
-        return "oneCustomer.html";
+        return "one-customer.html";
     }
 
     @PostMapping("/save")

@@ -9,6 +9,9 @@
 <body>
 
     <div class="container">
+
+        <div th:replace="fragments/navbar"></div>
+
         <div class="row">
             <div class="col-xl-3 my-3" th:each="order : ${allOrders}" th:unless="${#lists.isEmpty(allOrders)}">
                 <div class="card bg-warning" style="width: 15rem;">
@@ -29,8 +32,5 @@
             </div>
         </div>
     </div>
-
-
-
 </body>
 </html>

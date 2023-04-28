@@ -4,7 +4,6 @@ import com.example.webbshopbackend1.Models.Item;
 import com.example.webbshopbackend1.Repos.ItemRepo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
