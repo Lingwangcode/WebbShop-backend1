@@ -20,12 +20,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -87,6 +87,11 @@ public class OrderControllerTest {
                         "\"customer\":{\"id\":3,\"name\":\"Sara\",\"socialSecurityNumber\":\"523698\"}," +
                         "\"items\":[{\"id\":1,\"name\":\"White T-shirt\",\"price\":399}]}]"
                 ));
+
+        this.mockMvc.perform(get("/orders/getAll")).andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(jsonPath("$[1].customer.name", equalTo("Joe")))
+                .andExpect(jsonPath("$[2].items", hasSize(1)));
 
     }
 
