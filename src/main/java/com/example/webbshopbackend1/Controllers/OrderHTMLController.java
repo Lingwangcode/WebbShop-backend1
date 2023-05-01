@@ -59,6 +59,7 @@ public class OrderHTMLController {
             Item item = itemRepo.findById(id).orElse(null);
             if (item != null) {
                 items.add(item);
+                item.setStock(item.getStock()-1);
             }
             else {
                 model.addAttribute("errorMessage", "Item not found");
