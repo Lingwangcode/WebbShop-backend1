@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<div class="container class="d-flex justify-content-center align-items-center"">
+<div class="container ">
     <div th:replace="fragments/navbar"></div>
 
     <h1>Items! Items!! More items!!!</h1>
@@ -20,8 +20,11 @@
                     <p class="card-title" th:text = "${item.getName()}"></p>
                     <hr>
                     <p class="card-text" th:text = "${item.getPrice()} + ' SEK'"></p>
-                    <p class="card-text" th:text = "${item.getStock()} + ' in stock'"></p>
+                    <div th:if="${item.getStock() == 0}">
+                        <p> Out of stock</p>
+                    </div>
                     <div th:if="${item.getStock() > 0}">
+                        <p class="card-text" th:text = "${item.getStock()} + ' in stock'"></p>
                         <a th:href="@{/itemHTML/buyItemPage/{id}(id=${item.id})}">
                             <button type="submit" class="btn btn-primary">Buy</button>
                         </a>
