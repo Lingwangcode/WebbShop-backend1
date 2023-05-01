@@ -46,7 +46,7 @@
         </div>
         <div class="card-footer">
           <a>
-            <button class="btn btn-dark" onclick="setCustomerId('${c.id}')">Get customer id</button> <!-- Ger ju en sträng, men hur löser jag det? -->
+            <button type="button" class="btn btn-dark" th:onclick="'setCustomerId(' + ${c.getId()} + ')'" >Get customer id</button>
           </a>
         </div>
 
