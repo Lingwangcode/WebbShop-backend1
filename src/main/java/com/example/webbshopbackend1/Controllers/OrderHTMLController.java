@@ -51,21 +51,18 @@ public class OrderHTMLController {
 
 
     @RequestMapping("/save")
-    public String addOrder(@RequestParam Long customerId, @ModelAttribute("itemIds") List<Long> itemIds, Model model){
-       /* Item item = itemRepo.findById(itemId).get();
-        Customer customer = customerRepo.findById(customerId).get();
-        orderRepo.save(new Orders(LocalDate.now(),customer, List.of(item)));
-        return getAllOrders(model);
+    public String addOrder(@RequestParam Long customerId, @ModelAttribute("itemIds") String itemIds, Model model){
 
-        */
         List<Item> items = new ArrayList<>();
-        for (Long itemId :itemIds) {
-            Item item = itemRepo.findById(itemId).orElse(null);
+        for (String itemId :itemIds.split(",")) {
+            Long id = Long.parseLong(itemId.trim());
+            Item item = itemRepo.findById(id).orElse(null);
             if (item != null) {
                 items.add(item);
             }
             else {
-                return "Order failed";
+                model.addAttribute("errorMessage", "Item not found");
+                return "orders";
             }
         }
         Customer customer = customerRepo.findById(customerId).orElse(null);
@@ -73,19 +70,37 @@ public class OrderHTMLController {
             orderRepo.save(new Orders(LocalDate.now(), customer, items));
             return getAllOrders(model);
         } else {
-            return "Order failed";
+            model.addAttribute("errorMessage", "Customer not found");
+            return "orders";
         }
 
     }
 
+    @RequestMapping("/getByCustomerId/{customerId}")
+    public String getOrdersByCustomerId(@PathVariable Long customerId, Model model){
 
+        List<Orders> orders = orderRepo.findAll();
+        List<Orders> customerOrders = new ArrayList<>();
+        for (Orders order : orders) {
+            if (order.getCustomer().getId() == customerId) {
+                customerOrders.add(order);
+            }
+        }
+        model.addAttribute("allOrders", customerOrders);
+        model.addAttribute("date", "Date");
+        model.addAttribute("customerName", "Customer name");
+        model.addAttribute("customerSsn", "Customer ssn");
+        model.addAttribute("date", "Date");
+        model.addAttribute("itemName", "Item name");
+        model.addAttribute("itemPrice", "Price");
 
-    /*@RequestMapping("/getByCustomerId/{id}")
-    public String getOrdersByCustomerId(@PathVariable Long id, Model model){
+        model.addAttribute("itemInfo", "Item");
+        model.addAttribute("customerInfo", "Customer info");
 
-        return "";
+        return "orders-by-customer-id";
+
 
     }
-     */
+
 
 }

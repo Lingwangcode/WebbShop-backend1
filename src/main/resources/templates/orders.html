@@ -17,6 +17,9 @@
                 <label for="itemIds">Item Ids:</label><br>
                 <input type="text" id="itemIds" name="itemIds" placeholder="Use , to separate ids" value=""><br>
                 <input type="submit" value="Add item">
+                <div th:if="${errorMessage!=null}" class = "alert alert-danger">
+                    <p th:text="${errorMessage}"></p>
+                </div>
             </form>
             <div class="col-xl-3 my-3" th:each="order : ${allOrders}" th:unless="${#lists.isEmpty(allOrders)}">
                 <div class="card bg-warning" style="width: 15rem;">
