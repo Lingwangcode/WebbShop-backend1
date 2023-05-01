@@ -57,7 +57,7 @@ public class OrderHTMLController {
         for (String itemId :itemIds.split(",")) {
             Long id = Long.parseLong(itemId.trim());
             Item item = itemRepo.findById(id).orElse(null);
-            if (item != null) {
+            if (item != null && item.getStock() > 0) {
                 items.add(item);
                 item.setStock(item.getStock()-1);
             }
