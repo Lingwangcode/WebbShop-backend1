@@ -54,7 +54,8 @@ public class ItemHTMLController {
 
     @RequestMapping("/buyItemPage/{id}")
     public String buyItemPageWithId(@PathVariable Long id, Model model){
-        List<Customer> customers = customerRepo.findAll();
+        List<Customer> customers = customerRepo.findAll()
+                .stream().filter(customer -> customer.getName() != null).toList();
         model.addAttribute("allCustomers", customers);
         model.addAttribute("nameTitle", "Full name");
         model.addAttribute("ssnTitle", "Social security number");
