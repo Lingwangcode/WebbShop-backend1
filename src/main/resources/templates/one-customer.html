@@ -26,7 +26,8 @@
                 <h4 class="card-title text-center"
                     th:text="${deleted} ? 'CUSTOMER DELETED!' : ${nameTitle} + ': ' + ${fullname}"></h4>
                 <h5 th:if="${!deleted}" th:text="${ssnTitle} + ': ' + ${ssn}"></h5>
-                <h5 th:if="${!deleted}" th:text="${idTitle} + ': ' + ${id}"></h5>
+                <h5 th:if="${!deleted || orders > 0}" th:text="${idTitle} + ': ' + ${id}"></h5>
+                <h5 th:if="${!deleted || orders > 0}" th:text="${orderTitle} + ': ' + ${orders}"></h5>
             </div>
             <div class="card-footer">
                 <div class="btn-group">
