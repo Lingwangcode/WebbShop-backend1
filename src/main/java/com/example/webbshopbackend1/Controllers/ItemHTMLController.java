@@ -78,9 +78,11 @@ public class ItemHTMLController {
         Customer customer = customerRepo.findById(customerId).orElse(null); //orElse(null) krävs för att inte få 500-fel om obefintligt ID anges
         if (item != null && customer != null) {
             orderRepo.save(new Orders(LocalDate.now(), customer, List.of(item)));
-            return orderHTMLController.getAllOrders(model);
+          //  return orderHTMLController.getAllOrders(model);
+            return "redirect:/orderHTML/getAll";
         } else {
-            return orderHTMLController.getAllOrders(model);
+         //   return orderHTMLController.getAllOrders(model);
+            return "redirect:/orderHTML/getAll";
         }
 
     }
