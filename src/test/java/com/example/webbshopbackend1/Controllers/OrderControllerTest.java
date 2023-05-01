@@ -120,15 +120,15 @@ public class OrderControllerTest {
 
         this.mockMvc.perform(post("/orders/buy?customerId=4&itemIds=3&itemIds=2"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Order failed"));
+                .andExpect(content().string("Order failed, customer id not found"));
 
         this.mockMvc.perform(post("/orders/buy?customerId=1&itemIds=5"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Order failed"));
+                .andExpect(content().string("Order failed, item id /ids not found"));
 
         this.mockMvc.perform(post("/orders/buy?customerId=3&itemIds=3&itemIds=6"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Order failed"));
+                .andExpect(content().string("Order failed, item id /ids not found"));
 
     }
 
