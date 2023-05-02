@@ -63,7 +63,7 @@ public class ItemHTMLController {
             }
             return items(model);
         } catch (NumberFormatException e) {
-            model.addAttribute("errorMessage", "Price and stock has to be given in numbers");
+            model.addAttribute("errorMessage", "Price and stock has to be given in numbers, with no spaces");
             return items(model);
         }
     }
