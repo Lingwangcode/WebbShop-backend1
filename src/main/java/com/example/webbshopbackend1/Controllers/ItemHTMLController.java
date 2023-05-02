@@ -54,8 +54,10 @@ public class ItemHTMLController {
             return items(model);
         }
         try {
-            int price = Integer.parseInt(itemPrice);
-            int stock = Integer.parseInt(itemStock);
+            String pricestring = itemPrice.replace(" ", "");
+            String stockstring = itemStock.replace(" ", "");
+            int price = Integer.parseInt(pricestring);
+            int stock = Integer.parseInt(stockstring);
             if(price > 0) {
                 itemRepo.save(new Item(itemName, price, stock));
             } else {
@@ -63,7 +65,7 @@ public class ItemHTMLController {
             }
             return items(model);
         } catch (NumberFormatException e) {
-            model.addAttribute("errorMessage", "Price and stock has to be given in numbers, with no spaces");
+            model.addAttribute("errorMessage", "Price and stock has to be given in numbers");
             return items(model);
         }
     }
