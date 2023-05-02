@@ -61,7 +61,7 @@ public class OrderController {
             }
         }
         Customer customer = customerRepo.findById(customerId).orElse(null); //orElse(null) krävs för att inte få 500-fel om obefintligt ID anges
-        if (items != null && customer != null) {
+        if (items != null && customer != null && customer.getName() != null) {
             orderRepo.save(new Orders(LocalDate.now(), customer, items));
             return "Order added";
         } else {
