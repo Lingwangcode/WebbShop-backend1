@@ -32,17 +32,40 @@ public class ItemHTMLController {
     }
 
     @RequestMapping("/getAll")
-    public String items(Model model) { //Model är vår "plastpåse"
+    public String items(Model model) {
         List<Item> itemList = itemRepo.findAll();
         model.addAttribute("items", itemList);
         return "items.html";
     }
 
     @RequestMapping("/addItem")
-    public String itemAdded(@RequestParam String itemName, @RequestParam int itemPrice,
-                            @RequestParam int itemStock, Model model) {
-        itemRepo.save(new Item(itemName, itemPrice, itemStock));
-        return items(model);
+    public String itemAdded(@RequestParam String itemName, @RequestParam String itemPrice,
+                            @RequestParam String itemStock, Model model) {
+        if (itemPrice == null || itemPrice.isEmpty()) {
+            model.addAttribute("errorMessage", "Price conditions not met");
+            return items(model);
+        }
+        if (itemStock == null || itemStock.isEmpty()) {
+            model.addAttribute("errorMessage", "Stock conditions not met");
+            return items(model);
+        }
+        if(itemName == null || itemName.isEmpty()){
+            model.addAttribute("errorMessage", "Item name not added");
+            return items(model);
+        }
+        try {
+            int price = Integer.parseInt(itemPrice);
+            int stock = Integer.parseInt(itemStock);
+            if(price > 0) {
+                itemRepo.save(new Item(itemName, price, stock));
+            } else {
+                model.addAttribute("errorMessage", "Price has to be above 0");
+            }
+            return items(model);
+        } catch (NumberFormatException e) {
+            model.addAttribute("errorMessage", "Price and stock has to be given in numbers");
+            return items(model);
+        }
     }
 
     @RequestMapping("/buyItemPage/{id}")
