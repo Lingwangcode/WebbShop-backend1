@@ -45,18 +45,17 @@ public class OrderController {
         return customerOrders;
     }
 
-
-    @PostMapping(path = "/buy") //curl -X POST -H "Content-Type: application/json" "http://localhost:8080/orders/buy?customerId=1&itemIds=2&itemIds=3"
+    @PostMapping(path = "/buy")
+    //curl -X POST -H "Content-Type: application/json" "http://localhost:8080/orders/buy?customerId=1&itemIds=2&itemIds=3"
     public String addOrder(@RequestParam Long customerId, @RequestParam List<Long> itemIds) {
         List<Item> items = new ArrayList<>();
-        for (Long itemId :itemIds) {            //måste gå via en for-loop för att kunna lägga till flera av samma id i samma order
+        for (Long itemId : itemIds) {            //måste gå via en for-loop för att kunna lägga till flera av samma id i samma order
             Item item = itemRepo.findById(itemId).orElse(null);
-            if (item != null && item.getStock()>0) {
+            if (item != null && item.getStock() > 0) {
                 items.add(item);
-                item.setStock(item.getStock()-1);
+                item.setStock(item.getStock() - 1);
                 itemRepo.save(item);
-            }
-            else {      //else sats för att breaka metoden att köra vidare vid fel itemid
+            } else {      //else sats för att breaka metoden att köra vidare vid fel itemid
                 return "Order failed, item id /ids not found";
             }
         }
@@ -67,7 +66,5 @@ public class OrderController {
         } else {
             return "Order failed, customer id not found";
         }
-
     }
-
 }

@@ -31,19 +31,12 @@ public class ItemHTMLController {
         this.customerRepo = customerRepo;
     }
 
-
     @RequestMapping("/getAll")
     public String items(Model model) { //Model är vår "plastpåse"
         List<Item> itemList = itemRepo.findAll();
         model.addAttribute("items", itemList);
         return "items.html";
     }
-/*
-    @RequestMapping(path = "/deleteById/{id}")
-    public String deleteItem(@PathVariable Long id, Model model){
-        itemRepo.deleteById(id);
-        return items(model);
-    }*/
 
     @RequestMapping("/addItem")
     public String itemAdded(@RequestParam String itemName, @RequestParam int itemPrice,
@@ -67,24 +60,15 @@ public class ItemHTMLController {
         return "buyItem";
     }
 
-    /*
-    @RequestMapping("/buyItemPage")
-    public String buyItemPage(Model model){
-        return "buyItem.html";
-    }*/
-
     @RequestMapping(path = "/buy")
     public String addOrder(@RequestParam Long customerId, @RequestParam Long itemId, Model model) {
         Item item = itemRepo.findById(itemId).get();
         Customer customer = customerRepo.findById(customerId).orElse(null); //orElse(null) krävs för att inte få 500-fel om obefintligt ID anges
         if (item != null && customer != null) {
             orderRepo.save(new Orders(LocalDate.now(), customer, List.of(item)));
-          //  return orderHTMLController.getAllOrders(model);
             return "redirect:/orderHTML/getAll";
         } else {
-         //   return orderHTMLController.getAllOrders(model);
             return "redirect:/orderHTML/getAll";
         }
-
     }
 }

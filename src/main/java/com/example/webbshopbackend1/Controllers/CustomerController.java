@@ -45,13 +45,10 @@ public class CustomerController {
             return "All information concerning customer has been deleted";
         }
     }
-
-
     //curl http://localhost:8080/customers/add -H "Content-Type:application/json" -d "{\"name\":\"baby\", \"socialSecurityNumber\":\"222222\"}" -v
     @PostMapping("/add")
     public String addCustomer(@RequestBody Customer customer) {
         customerRepo.save(customer);
         return "Customer " + customer.getName() + " added to database";
     }
-
 }
