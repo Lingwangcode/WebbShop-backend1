@@ -67,7 +67,7 @@ public class OrderHTMLController {
             }
         }
         Customer customer = customerRepo.findById(customerId).orElse(null);
-        if (items != null && customer != null) {
+        if (items != null && customer != null && customer.getName() != null) {
             orderRepo.save(new Orders(LocalDate.now(), customer, items));
             return getAllOrders(model);
         } else {
