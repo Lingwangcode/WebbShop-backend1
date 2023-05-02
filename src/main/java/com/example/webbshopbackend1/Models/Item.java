@@ -24,6 +24,4 @@ public class Item {
         this.price = price;
         this.stock = stock;
     }
-
-
 }
