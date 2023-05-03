@@ -21,7 +21,8 @@
           <form class="align-items-end" action="buy" method="post"
                 th:action="@{/itemHTML/buy}">
             <div class="form-group">
-              <label th:text="'Item id: ' + ${item.getId()}" name="itemId" value="${item.getId()}" style="font-size: 150%; margin-top: 2%">Item id: add here...</label><br>
+              <label th:text="'Item name: ' + ${item.getName()}" name="itemId" value="${item.getId()}" style="font-size: 150%; margin-top: 2%" readonly>Item name: add here...</label>
+              <label th:text="'Item id: '" name="itemId" value="${item.getId()}" style="font-size: 150%; margin-top: 2%">Item id: add here...</label><br><!--+ ${item.getId()}-->
               <input type="text" id="itemId" name="itemId" th:value="${item.getId()}" style="margin-bottom: 145px" readonly><br>
             </div>
             <div class="form-group">
