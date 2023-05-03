@@ -37,7 +37,7 @@ public class CustomerController {
         if (orders.isEmpty()) {
             customerRepo.deleteById(id);
             return "Customer deleted";
-        }else {
+        } else {
             Customer customer = customerRepo.findById(id).orElse(null);
             customer.setName(null);
             customer.setSocialSecurityNumber(null);
@@ -45,10 +45,16 @@ public class CustomerController {
             return "All information concerning customer has been deleted";
         }
     }
+
     //curl http://localhost:8080/customers/add -H "Content-Type:application/json" -d "{\"name\":\"baby\", \"socialSecurityNumber\":\"222222\"}" -v
     @PostMapping("/add")
     public String addCustomer(@RequestBody Customer customer) {
-        customerRepo.save(customer);
-        return "Customer " + customer.getName() + " added to database";
+        if (customer.getName() == null || customer.getSocialSecurityNumber() == null
+        || customer.getName().length() <1 || customer.getSocialSecurityNumber().length() <1) {
+            return "\t\tAll customers must have a name and social security number";
+        } else {
+            customerRepo.save(customer);
+            return "\t\tCustomer " + customer.getName() + " added to database";
+        }
     }
 }

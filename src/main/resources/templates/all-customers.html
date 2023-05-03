@@ -39,7 +39,9 @@
                             <input type="submit" class="btn btn-success" style="margin:6px" id="submit" value="Submit">
                         </div>
                     </form>
-
+                    <div th:if="${errorMessage!=null}" class = "alert alert-danger">
+                        <p th:text="${errorMessage}"></p>
+                    </div>
                 </div>
 
             </div>

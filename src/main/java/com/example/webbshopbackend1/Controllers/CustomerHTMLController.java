@@ -80,7 +80,11 @@ public class CustomerHTMLController {
     @PostMapping("/save")
     public String save(@RequestParam String fullname,
                        @RequestParam String ssn, Model model) {
-        customerRepo.save(new Customer(fullname, ssn));
+        if (fullname.length() <1 || ssn.length() <1){
+            model.addAttribute("errorMessage", "Customer must have a name and social security number");
+        }else {
+            customerRepo.save(new Customer(fullname, ssn));
+        }
         return getAllCustomers(model);
     }
 
