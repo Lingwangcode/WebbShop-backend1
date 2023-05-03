@@ -70,7 +70,7 @@ public class OrderHTMLController {
             return "orders";
         }
     }
-
+//http://localhost:8080/orderHTML/getByCustomerId/3
     @RequestMapping("/getByCustomerId/{customerId}")
     public String getOrdersByCustomerId(@PathVariable Long customerId, Model model) {
 
